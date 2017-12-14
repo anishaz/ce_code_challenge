@@ -10,16 +10,18 @@ app.get('/', function(req, res) {
   res.render("index", { greeting: greeting });
 })
 
-app.get('/*', function(req, res) {
-  let path = req.url;
-  // Take path, make lowercase, look for all forward slashes, and replace with a space, then take the first letter in the string and make upperCase
-  let greeting = path.toLowerCase().replace(/(\/)+/g, " ").replace(/\b[a-z]/g, function(makeUpper){return makeUpper.toUpperCase();});
+app.get('/:first', function(req, res) {
+  let stringFirst = req.params.first.toString();
+  let greeting = "Hello" + " " + stringFirst.toLowerCase().charAt(0).toUpperCase() + stringFirst.toLowerCase().slice(1);
+  res.render("index", { greeting: greeting });
+})
 
-  let slashCount = path.match(/(\/)+/g).length;
-  if (slashCount == 1){
-      greeting = ("Hello" + greeting);
-  };
-
+app.get('/:first/:second', function(req, res) {
+  let stringFirst = req.params.first.toString();
+  let stringSecond = req.params.second.toString();
+  let firstGreeting = stringFirst.toLowerCase().charAt(0).toUpperCase() + stringFirst.toLowerCase().slice(1);
+  let secondGreeting = stringSecond.toLowerCase().charAt(0).toUpperCase() + stringSecond.toLowerCase().slice(1);
+  let greeting = firstGreeting + " " + secondGreeting;
   res.render("index", { greeting: greeting });
 })
 
