@@ -10,18 +10,18 @@ app.get('/', function(req, res) {
   res.render("index", { greeting: greeting });
 })
 
+function stringify(str){
+  let greeting = str.toString().toLowerCase().charAt(0).toUpperCase() + str.toLowerCase().slice(1);
+  return greeting;
+}
+
 app.get('/:first', function(req, res) {
-  let stringFirst = req.params.first.toString();
-  let greeting = "Hello" + " " + stringFirst.toLowerCase().charAt(0).toUpperCase() + stringFirst.toLowerCase().slice(1);
+  let greeting = "Hello" + " " + stringify(req.params.first);
   res.render("index", { greeting: greeting });
 })
 
 app.get('/:first/:second', function(req, res) {
-  let stringFirst = req.params.first.toString();
-  let stringSecond = req.params.second.toString();
-  let firstGreeting = stringFirst.toLowerCase().charAt(0).toUpperCase() + stringFirst.toLowerCase().slice(1);
-  let secondGreeting = stringSecond.toLowerCase().charAt(0).toUpperCase() + stringSecond.toLowerCase().slice(1);
-  let greeting = firstGreeting + " " + secondGreeting;
+  let greeting = stringify(req.params.first) + " " + stringify(req.params.second);
   res.render("index", { greeting: greeting });
 })
 
